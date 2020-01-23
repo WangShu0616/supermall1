@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <router-link to="/home">首页</router-link>
-    <router-link to="/about">关于</router-link>
+    <main-tab-bar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import MainTabBar from "components/content/MainTabBar/MainTabBar";
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    MainTabBar
+  }
 };
 </script>
 <style>
-div {
-  background: red;
-}
 </style>
