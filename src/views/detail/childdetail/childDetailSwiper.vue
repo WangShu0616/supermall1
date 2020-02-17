@@ -1,5 +1,5 @@
 <template>
-  <swiper class="detail-swiper">
+  <swiper class="detail-swiper" v-if="topImg.length">
     <swiper-item v-for="item in topImg" :key="item">
       <img :src="item" />
     </swiper-item>

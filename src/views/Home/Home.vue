@@ -44,9 +44,11 @@ import GoodHomeList from "components/content/goodhomelist/GoodHomeList";
 import scroll from "components/common/scroll/scroll";
 import BackTop from "components/common/backtop/BackTop";
 import { getHomeMultidata, getGoods } from "network/home";
-import { debounce } from "common/debounce";
+import { debounce } from "common/utils";
+import { ItemListenerMixin } from "common/mixin";
 export default {
   name: "Home",
+  mixins: [ItemListenerMixin],
   data() {
     return {
       banners: [],
@@ -80,19 +82,13 @@ export default {
     this.getGoods("new");
     this.getGoods("sell");
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 100);
-
-    this.$bus.$on("ItemImgLoad", () => {
-      refresh();
-    });
-  },
   activated() {
     this.$refs.scroll.BackTop(0, this.scrollTop, 0);
     this.$refs.scroll.refresh();
   },
   deactivated() {
     this.scrollTop = this.$refs.scroll.getScrollTop();
+    this.$bus.$off("ItemImgLoad", this.ItemImgLoad);
   },
   beforeDestroy() {
     this.$bus.$off;

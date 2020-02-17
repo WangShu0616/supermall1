@@ -1,6 +1,6 @@
 <template>
   <div class="good-list-item" @click="detailClick">
-    <img :src="goodsList.show.img" @load="ImgLoad" />
+    <img :src="showImg" @load="ImgLoad" />
     <div class="goods-info">
       <p>{{goodsList.title}}</p>
       <span class="price">{{goodsList.price}}</span>
@@ -19,12 +19,20 @@ export default {
       }
     }
   },
+  computed: {
+    showImg() {
+      return this.goodsList.image || this.goodsList.show.img;
+    },
+    shopIid() {
+      return this.goodsList.iid || this.goodsList.shop_id;
+    }
+  },
   methods: {
     ImgLoad() {
       this.$bus.$emit("ItemImgLoad");
     },
     detailClick() {
-      this.$router.push("/detail/" + this.goodsList.iid);
+      this.$router.push("/detail/" + this.shopIid);
     }
   }
 };

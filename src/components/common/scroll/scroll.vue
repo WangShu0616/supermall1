@@ -26,12 +26,13 @@ export default {
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.warpper, {
-      probeType: this.position,
+      probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
       click: true
     });
     this.scroll.on("scroll", position => {
       this.$emit("scroll", position);
+      // console.log(position);
     });
     this.scroll.on("pullingUp", () => {
       this.$emit("pullingUp");
@@ -49,6 +50,9 @@ export default {
     },
     getScrollTop() {
       return this.scroll.y ? this.scroll.y : 0;
+    },
+    scrollToElement(el, time, x, y) {
+      this.scroll && this.scroll.scrollToElement(el, time, x, y);
     }
   }
 };
